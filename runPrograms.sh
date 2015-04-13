@@ -32,8 +32,6 @@ echo "$p"
 	#get the file name (everything after the last slash)
 	fileName="${p##*/}"
 	
-	
-	echo "Here"
 	#open each source file in notepad++
 	notepad++ "*.java"
 	
