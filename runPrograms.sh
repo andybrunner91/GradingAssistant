@@ -11,7 +11,7 @@ baseDir="/cygdrive/c/Users/andyb_000/Desktop/Lab${labNum}/"
 #inputFile="${baseDir}/Lab${labNum}input.txt"
 
 #writes path of each .java file to javaLocs.txt
-find . -name '*.java' -exec echo '{}' \; > javaLocs.txt
+find . -name "*.java" -exec echo '{}' \; > javaLocs.txt
 
 rm javasWithMain.txt
 #this loop is supposed to remove the files without a main function from javaLocs.txt, but it doesn't work yet
