@@ -16,6 +16,8 @@ find . -name "*.java" -exec echo '{}' \; > javaLocs.txt
 rm javasWithMain.txt
 #this loop is supposed to remove the files without a main function from javaLocs.txt, but it doesn't work yet
 while read p; do
+	#Get rid of lines that start with package.
+	sed -i'' "/^[ ]*package/d" "$p"
 	if grep -Eq "public[ ]+static[ ]+void[ ]+main" "$p"
 		then
 		echo "Found main at $p !"
