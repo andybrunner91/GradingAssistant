@@ -35,7 +35,7 @@ echo "$p"
 	fileName="${p##*/}"
 	
 	#open each source file in notepad++
-	notepad++ "*.java"
+	notepad++ "*.java" &
 	
 	#Recompile and rerun the file if the user says n, otherwise, go to the next program
 	yn="n"
