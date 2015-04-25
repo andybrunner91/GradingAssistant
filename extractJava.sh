@@ -3,7 +3,6 @@
 #Andy Brunner
 #March 2015
 #Extracts java projects from submissions.zip folder that is downloaded from canvas.  
-#Put this file in the same directory that the submissions.zip folder is in and run it.
 read -p "What would you like the folder that contains the files to be called?" folderName < /dev/tty
 unzip -d "$folderName" submissions.zip 
 rm submissions.zip

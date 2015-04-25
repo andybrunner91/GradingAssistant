@@ -4,10 +4,7 @@
 #March 2015
 #This program takes students java project submissions from Canvas and runs each one.
 
-#variables 
-labNum="3"
-
-baseDir="/cygdrive/c/Users/andyb_000/Desktop/Lab${labNum}/"
+baseDir=`pwd`
 #inputFile="${baseDir}/Lab${labNum}input.txt"
 
 #writes path of each .java file to javaLocs.txt
@@ -26,10 +23,8 @@ while read p; do
 done <javaLocs.txt
 
 while read p; do
-echo "$p"
 	#get the path of the directory of the source files (everything before the last slash)
 	fileLoc="${p%/*}"
-	echo "$fileLoc"
 	cd "$fileLoc"
 	#get the file name (everything after the last slash)
 	fileName="${p##*/}"
@@ -38,21 +33,36 @@ echo "$p"
 	notepad++ "*.java" &
 	
 	#Recompile and rerun the file if the user says n, otherwise, go to the next program
-	yn="n"
+	yn="r"
+	
+	menu="\nOptions:\nr - Recompile and rerun the current program.\n"
+	menu+="d - Delete the current program and move on to the next one. (Not implemented yet).\n"
+	menu+="q - Quit\n"
+	menu+="Enter - Move on to the next program without deleting.\n"
 
-	while [ "$yn" == "n" ]; do
+	while [ "$yn" == "r" -o "$yn" == "R" ]; do
+		echo "$p"
 		#javac "$fileName"
 		javac "*.java"
 		#If the input file is unset (or is the empty string), then just run the file.
 		#Otherwise, run the program with the input file
 		if [ -z "$inputFile" ]; then 
-		java "${fileName%.java}"
-	else
-		java "${fileName%.java}" < "$inputFile"
-	fi	
-		printf "\n"
-		read -p "Type n to recompile and rerun the current program.  Type anything else to go to the next one." yn < /dev/tty
+			java "${fileName%.java}" < /dev/tty
+		else
+			java "${fileName%.java}" < "$inputFile"
+		fi	
+		printf "$menu"
+		read yn < /dev/tty
 	done
+	
+	if [ "$yn" == "q" -o "$yn" == "Q" ]; then
+		exit
+	fi
+	
 	cd "$baseDir"
+	
+	#if [ "$yn" == "d" -o "$yn" == "D" ]; then
+	#fi
+	
 
 done <javasWithMain.txt
